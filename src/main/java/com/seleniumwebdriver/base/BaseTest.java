@@ -1,5 +1,5 @@
-package com.SeleniumWebDriver.com.tests;
-import com.SeleniumWebdriver.com.base.DriverFactory;
+package com.seleniumwebdriver.base;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -8,15 +8,16 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-    @BeforeMethod
+    // Shared across tests that need to pass username between steps
+    protected static String lastGeneratedUserName;
+
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
         driver = DriverFactory.initDriver();
-        driver.get("https://qkart-qa-web.labs.crio.do/");
     }
 
-    @AfterMethod
-    public void tearDown()
-    {
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
         DriverFactory.quitDriver();
     }
 }
